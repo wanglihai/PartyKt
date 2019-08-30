@@ -21,7 +21,6 @@ public class LoginInterceptor implements IInterceptor {
     @Override
     public void process(Postcard postcard, InterceptorCallback callback) {
         String groups = postcard.getGroup();
-
         if("needLogin".equals(groups)){
             if(true) {//登录判断
                 Log.e("你需要登录", "你需要登录");

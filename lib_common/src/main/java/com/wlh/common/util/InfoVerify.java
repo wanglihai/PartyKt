@@ -74,6 +74,16 @@ public class InfoVerify {
         return false;
     }
 
+    /**
+     * 正则表达式：校验密码
+     *
+     * @param password
+     * @return
+     */
+    public static boolean isPassword(String password) {
+        return Pattern.matches("^[a-zA-Z0-9]{6,16}$", password);
+    }
+
     public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("^[0-9]+\\.?[0-9]*[0-9]$");
         Matcher isNum = pattern.matcher(str);
