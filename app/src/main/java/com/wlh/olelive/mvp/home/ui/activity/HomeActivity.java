@@ -1,14 +1,10 @@
 package com.wlh.olelive.mvp.home.ui.activity;
 
-import android.widget.Toolbar;
-
 import com.wlh.common.base.BaseMvpActivity;
-
-import com.wlh.olelive.mvp.home.contract.HomeContract;
-import com.wlh.olelive.mvp.home.presenter.HomePresenter;
-import com.wlh.olelive.mvp.home.model.HomeModel;
-
 import com.wlh.olelive.R;
+import com.wlh.olelive.mvp.home.contract.HomeContract;
+import com.wlh.olelive.mvp.home.model.HomeModel;
+import com.wlh.olelive.mvp.home.presenter.HomePresenter;
 
 /**
  * Created by on 08/29/2019 16:04
