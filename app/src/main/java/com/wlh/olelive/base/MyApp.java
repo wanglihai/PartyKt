@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import com.wlh.common.BaseApplication;
+import com.wlh.olelive.utils.EasyHttpUtils;
 
 /**
  * 时间: 2019-08-2716:03
@@ -18,6 +19,7 @@ public class MyApp extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         //https://github.com/zhou-you/RxEasyHttp
+        EasyHttpUtils.init(this);
     }
 
     /**

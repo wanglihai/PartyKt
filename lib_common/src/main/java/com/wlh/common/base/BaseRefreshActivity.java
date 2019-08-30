@@ -70,5 +70,4 @@ public abstract class BaseRefreshActivity<M extends BaseModel, V extends BaseRef
         mRefreshLayout.finishLoadMore();
     }
 
-
 }
