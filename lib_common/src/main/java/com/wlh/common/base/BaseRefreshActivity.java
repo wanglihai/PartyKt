@@ -1,6 +1,6 @@
 package com.wlh.common.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.wlh.common.mvp.BaseModel;
 import com.wlh.common.mvp.BaseRefreshPresenter;

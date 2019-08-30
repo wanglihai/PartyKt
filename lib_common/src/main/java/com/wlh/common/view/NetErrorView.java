@@ -1,7 +1,7 @@
 package com.wlh.common.view;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
+import androidx.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;

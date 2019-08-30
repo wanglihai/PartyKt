@@ -1,9 +1,9 @@
 package com.wlh.common.view;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +82,7 @@ public class HorizontalCenterRecycleView extends RecyclerView {
     }
 
     /**
-     * 设置初始化时选中的位置,该方法必须在{@link HorizontalCenterRecycleView#setAdapter(android.support.v7.widget.RecyclerView.Adapter) }之前调用
+     * 设置初始化时选中的位置,该方法必须在{@link HorizontalCenterRecycleView#setAdapter(RecyclerView.Adapter) }之前调用
      *
      * @param initPos 初始位置，如果位置超过了item的数量则默认选中最后一项item
      */
@@ -96,7 +96,7 @@ public class HorizontalCenterRecycleView extends RecyclerView {
     }
 
     /**
-     * 设置每次显示多少个item,该方法必须在{@link HorizontalCenterRecycleView#setAdapter(android.support.v7.widget.RecyclerView.Adapter) }之前调用
+     * 设置每次显示多少个item,该方法必须在{@link HorizontalCenterRecycleView#setAdapter(RecyclerView.Adapter) }之前调用
      *
      * @param itemCount 必须为奇数，否则默认会设置成小于它的最大奇数
      */

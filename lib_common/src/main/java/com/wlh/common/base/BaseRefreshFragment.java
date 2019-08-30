@@ -1,12 +1,11 @@
 package com.wlh.common.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 import com.wlh.common.mvp.BaseModel;
 import com.wlh.common.mvp.BaseRefreshPresenter;
 import com.wlh.common.mvp.BaseRefreshView;
-import com.wlh.common.util.log.KLog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                    android:id="@+id/toolbar_root"
                                    android:layout_width="match_parent"
@@ -30,4 +30,4 @@
         android:text="易车队"
         android:textColor="?attr/colorPrimaryDark"
         android:textSize="17sp"/>
-</android.support.v7.widget.Toolbar>
+</androidx.appcompat.widget.Toolbar>
