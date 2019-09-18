@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.wlh.common.util.LogcatHelper;
 import com.wlh.common.util.log.KLog;
 
 /**
@@ -41,6 +42,11 @@ public class BaseApplication extends Application {
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
+
+        //本地日志打印
+        LogcatHelper logcatHelper = LogcatHelper.getInstance(this);
+        logcatHelper.init(this);
+        logcatHelper.start();
     }
 
     public static BaseApplication getInstance() {
