@@ -8,7 +8,7 @@ import com.wlh.common.R;
 public class AlertAnimateUtil {
 
     private static final int INVALID = -1;
-  
+
     static int getAnimationResource(int gravity, boolean isInAnimation) {
         switch (gravity) {
             case Gravity.BOTTOM:
