@@ -47,6 +47,9 @@ public class BaseApplication extends Application {
         LogcatHelper logcatHelper = LogcatHelper.getInstance(this);
         logcatHelper.init(this);
         logcatHelper.start();
+
+
+        //https://blog.csdn.net/weixin_38261570/article/details/81046352    系统版本适配的博客
     }
 
     public static BaseApplication getInstance() {
