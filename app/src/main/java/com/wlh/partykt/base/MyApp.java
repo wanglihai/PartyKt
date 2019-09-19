@@ -1,10 +1,23 @@
 package com.wlh.partykt.base;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import com.wlh.common.BaseApplication;
+import com.wlh.common.util.log.KLog;
+import com.wlh.common.util.log.KLogUtil;
+import com.wlh.partykt.config.AutoSizeConfigUtil;
 import com.wlh.partykt.utils.EasyHttpUtils;
+
+import java.util.Locale;
+
+import me.jessyan.autosize.AutoSize;
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.external.ExternalAdaptInfo;
+import me.jessyan.autosize.external.ExternalAdaptManager;
+import me.jessyan.autosize.internal.CustomAdapt;
+import me.jessyan.autosize.onAdaptListener;
 
 /**
  * 时间: 2019-08-2716:03
@@ -19,6 +32,7 @@ public class MyApp extends BaseApplication {
         super.onCreate();
         //https://github.com/zhou-you/RxEasyHttp
         EasyHttpUtils.init(this);
+        AutoSizeConfigUtil.setAutoSizeConfig(this);
     }
 
     /**
@@ -48,5 +62,7 @@ public class MyApp extends BaseApplication {
         }
         return res;
     }
+
+
 
 }

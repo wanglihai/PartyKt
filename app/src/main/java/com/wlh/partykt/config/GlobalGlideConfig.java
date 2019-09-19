@@ -1,6 +1,8 @@
 package com.wlh.partykt.config;
 
 import android.content.Context;
+import android.os.Environment;
+
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
@@ -9,6 +11,8 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
+import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory;
+import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
@@ -61,10 +65,22 @@ public class GlobalGlideConfig extends AppGlideModule {
         // 设置内存缓存大小
         builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes));
         // 根据SD卡是否可用选择是在内部缓存还是SD卡缓存
-//        if(SDCardUtils.isSDCardEnable()){
-//            builder.setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context, "HYManagerImages", diskCacheSizeBytes));
-//        }else {
-//            builder.setDiskCache(new InternalCacheDiskCacheFactory(context, "HYManagerImages", memoryCacheSizeBytes));
-//        }
+        if(isSdCardEnable()){
+            builder.setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context, "ManagerImages", diskCacheSizeBytes));
+        }else {
+            builder.setDiskCache(new InternalCacheDiskCacheFactory(context, "ManagerImages", memoryCacheSizeBytes));
+        }
+    }
+
+    /**
+     * 判断SD卡是否可用
+     * @return
+     */
+    private boolean isSdCardEnable(){
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return true;
+        } else{
+            return false;
+        }
     }
 }

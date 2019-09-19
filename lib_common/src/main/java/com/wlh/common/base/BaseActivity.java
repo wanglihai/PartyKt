@@ -25,6 +25,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.ButterKnife;
+
 /**
  * Description: <BaseActivity><br>
  * Author:      mxdl<br>
@@ -53,6 +55,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_root);
         initCommonView();
+        ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
         initView();
         initListener();

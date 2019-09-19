@@ -1,15 +1,18 @@
 package com.wlh.common.base;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.TextView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import com.wlh.common.R;
@@ -26,6 +29,9 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment implements BaseView {
     protected static final String TAG = BaseFragment.class.getSimpleName();
@@ -48,6 +54,8 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     private boolean isViewCreated = false;
     private boolean isViewVisable = false;
 
+    private Unbinder unbinder;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +69,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_root, container, false);
         initCommonView(mView);
+        unbinder = ButterKnife.bind(this, mView);
         initView(mView);
         initListener();
         return mView;
@@ -108,9 +117,9 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     private void lazyLoad() {
         //这里进行双重标记判断,必须确保onCreateView加载完毕且页面可见,才加载数据
-        KLog.v("MYTAG","lazyLoad start...");
-        KLog.v("MYTAG","isViewCreated:"+isViewCreated);
-        KLog.v("MYTAG","isViewVisable"+isViewVisable);
+        KLog.v("MYTAG", "lazyLoad start...");
+        KLog.v("MYTAG", "isViewCreated:" + isViewCreated);
+        KLog.v("MYTAG", "isViewVisable" + isViewVisable);
         if (isViewCreated && isViewVisable) {
             initData();
             //数据加载完毕,恢复标记,防止重复加载
@@ -118,6 +127,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
             isViewVisable = false;
         }
     }
+
     //默认不启用懒加载
     public boolean enableLazyData() {
         return false;
@@ -127,6 +137,12 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     protected void initTooBar(View view) {
@@ -199,9 +215,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void showNoDataView() {
         showNoDataView(true);
     }
+
     public void showNoDataView(int resid) {
-        showNoDataView(true,resid);
+        showNoDataView(true, resid);
     }
+
     public void hideNoDataView() {
         showNoDataView(false);
     }
@@ -250,12 +268,14 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         }
         mNoDataView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
-    private void showNoDataView(boolean show,int resid) {
+
+    private void showNoDataView(boolean show, int resid) {
         showNoDataView(show);
-        if(show){
+        if (show) {
             mNoDataView.setNoDataView(resid);
         }
     }
+
     private void showTransLoadingView(boolean show) {
         if (mLoadingTransView == null) {
             View view = mViewStubTransLoading.inflate();
