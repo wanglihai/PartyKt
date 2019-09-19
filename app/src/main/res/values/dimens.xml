@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="divider_height">1px</dimen>
+
+    <!-- common size -->
+    <dimen name="common_block_margin_horizontal">15dp</dimen>
+
+    <dimen name="dialog_comment_radios">5dp</dimen>
+
+</resources>
