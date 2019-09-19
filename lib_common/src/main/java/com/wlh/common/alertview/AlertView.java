@@ -25,15 +25,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Sai on 15/8/9.
  * 精仿iOSAlertViewController控件
  * 点击取消按钮返回 －1，其他按钮从0开始算
  */
 public class AlertView {
-    public enum Style{
+
+    public enum Style {
         ActionSheet,
         Alert
     }
+
     private final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM
     );
@@ -81,9 +82,9 @@ public class AlertView {
         initEvents();
     }
 
-    public AlertView(String title, String msg, String cancel, String[] destructive, String[] others, Context context, Style style,OnItemClickListener onItemClickListener){
+    public AlertView(String title, String msg, String cancel, String[] destructive, String[] others, Context context, Style style, OnItemClickListener onItemClickListener) {
         this.contextWeak = new WeakReference<>(context);
-        if(style != null)this.style = style;
+        if (style != null) this.style = style;
         this.onItemClickListener = onItemClickListener;
 
         initData(title, msg, cancel, destructive, others);
@@ -99,38 +100,39 @@ public class AlertView {
 
         this.title = title;
         this.msg = msg;
-        if (destructive != null){
+        if (destructive != null) {
             this.mDestructive = Arrays.asList(destructive);
             this.mDatas.addAll(mDestructive);
         }
-        if (others != null){
+        if (others != null) {
             this.mOthers = Arrays.asList(others);
             this.mDatas.addAll(mOthers);
         }
-        if (cancel != null){
+        if (cancel != null) {
             this.cancel = cancel;
-            if(style == Style.Alert && mDatas.size() < HORIZONTAL_BUTTONS_MAXCOUNT){
-                this.mDatas.add(0,cancel);
+            if (style == Style.Alert && mDatas.size() < HORIZONTAL_BUTTONS_MAXCOUNT) {
+                this.mDatas.add(0, cancel);
             }
         }
 
     }
-    protected void initViews(){
+
+    protected void initViews() {
         Context context = contextWeak.get();
-        if(context == null) return;
+        if (context == null) return;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        decorView = (ViewGroup) ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
+        decorView = (ViewGroup) ((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content);
         rootView = (ViewGroup) layoutInflater.inflate(R.layout.layout_alertview, decorView, false);
         rootView.setLayoutParams(new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
         ));
         contentContainer = (ViewGroup) rootView.findViewById(R.id.content_container);
         int margin_alert_left_right = 0;
-        switch (style){
+        switch (style) {
             case ActionSheet:
                 params.gravity = Gravity.BOTTOM;
                 margin_alert_left_right = context.getResources().getDimensionPixelSize(R.dimen.margin_actionsheet_left_right);
-                params.setMargins(margin_alert_left_right,0,margin_alert_left_right,margin_alert_left_right);
+                params.setMargins(margin_alert_left_right, 0, margin_alert_left_right, margin_alert_left_right);
                 contentContainer.setLayoutParams(params);
                 gravity = Gravity.BOTTOM;
                 initActionSheetViews(layoutInflater);
@@ -138,36 +140,38 @@ public class AlertView {
             case Alert:
                 params.gravity = Gravity.CENTER;
                 margin_alert_left_right = context.getResources().getDimensionPixelSize(R.dimen.margin_alert_left_right);
-                params.setMargins(margin_alert_left_right,0,margin_alert_left_right,0);
+                params.setMargins(margin_alert_left_right, 0, margin_alert_left_right, 0);
                 contentContainer.setLayoutParams(params);
                 gravity = Gravity.CENTER;
                 initAlertViews(layoutInflater);
                 break;
         }
     }
-    protected void initHeaderView(ViewGroup viewGroup){
+
+    protected void initHeaderView(ViewGroup viewGroup) {
         loAlertHeader = (ViewGroup) viewGroup.findViewById(R.id.loAlertHeader);
         //标题和消息
         TextView tvAlertTitle = (TextView) viewGroup.findViewById(R.id.tvAlertTitle);
         TextView tvAlertMsg = (TextView) viewGroup.findViewById(R.id.tvAlertMsg);
-        if(title != null) {
+        if (title != null) {
             tvAlertTitle.setText(title);
-        }else{
+        } else {
             tvAlertTitle.setVisibility(View.GONE);
         }
-        if(msg != null) {
+        if (msg != null) {
             tvAlertMsg.setText(msg);
-        }else{
+        } else {
             tvAlertMsg.setVisibility(View.GONE);
         }
     }
-    protected void initListView(){
+
+    protected void initListView() {
         Context context = contextWeak.get();
-        if(context == null) return;
+        if (context == null) return;
 
         ListView alertButtonListView = (ListView) contentContainer.findViewById(R.id.alertButtonListView);
         //把cancel作为footerView
-        if(cancel != null && style == Style.Alert){
+        if (cancel != null && style == Style.Alert) {
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_alertbutton, null);
             TextView tvAlert = (TextView) itemView.findViewById(R.id.tvAlert);
             tvAlert.setText(cancel);
@@ -178,101 +182,105 @@ public class AlertView {
             tvAlert.setOnClickListener(new OnTextClickListener(CANCELPOSITION));
             alertButtonListView.addFooterView(itemView);
         }
-        AlertViewAdapter adapter = new AlertViewAdapter(mDatas,mDestructive);
+        AlertViewAdapter adapter = new AlertViewAdapter(mDatas, mDestructive);
         alertButtonListView.setAdapter(adapter);
         alertButtonListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if(onItemClickListener != null)onItemClickListener.onItemClick(AlertView.this,position);
+                if (onItemClickListener != null)
+                    onItemClickListener.onItemClick(AlertView.this, position);
                 dismiss();
             }
         });
     }
+
     protected void initActionSheetViews(LayoutInflater layoutInflater) {
-        ViewGroup viewGroup = (ViewGroup) layoutInflater.inflate(R.layout.layout_alertview_actionsheet,contentContainer);
+        ViewGroup viewGroup = (ViewGroup) layoutInflater.inflate(R.layout.layout_alertview_actionsheet, contentContainer);
         initHeaderView(viewGroup);
 
         initListView();
         TextView tvAlertCancel = (TextView) contentContainer.findViewById(R.id.tvAlertCancel);
-        if(cancel != null){
+        if (cancel != null) {
             tvAlertCancel.setVisibility(View.VISIBLE);
             tvAlertCancel.setText(cancel);
         }
         tvAlertCancel.setOnClickListener(new OnTextClickListener(CANCELPOSITION));
     }
+
     protected void initAlertViews(LayoutInflater layoutInflater) {
         Context context = contextWeak.get();
-        if(context == null) return;
+        if (context == null) return;
 
         ViewGroup viewGroup = (ViewGroup) layoutInflater.inflate(R.layout.layout_alertview_alert, contentContainer);
         initHeaderView(viewGroup);
 
         int position = 0;
         //如果总数据小于等于HORIZONTAL_BUTTONS_MAXCOUNT，则是横向button
-        if(mDatas.size()<=HORIZONTAL_BUTTONS_MAXCOUNT){
+        if (mDatas.size() <= HORIZONTAL_BUTTONS_MAXCOUNT) {
             ViewStub viewStub = (ViewStub) contentContainer.findViewById(R.id.viewStubHorizontal);
             viewStub.inflate();
             LinearLayout loAlertButtons = (LinearLayout) contentContainer.findViewById(R.id.loAlertButtons);
-            for (int i = 0; i < mDatas.size(); i ++) {
+            for (int i = 0; i < mDatas.size(); i++) {
                 //如果不是第一个按钮
-                if (i != 0){
+                if (i != 0) {
                     //添加上按钮之间的分割线
                     View divier = new View(context);
                     divier.setBackgroundColor(context.getResources().getColor(R.color.bgColor_divier));
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)context.getResources().getDimension(R.dimen.size_divier), LinearLayout.LayoutParams.MATCH_PARENT);
-                    loAlertButtons.addView(divier,params);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) context.getResources().getDimension(R.dimen.size_divier), LinearLayout.LayoutParams.MATCH_PARENT);
+                    loAlertButtons.addView(divier, params);
                 }
                 View itemView = LayoutInflater.from(context).inflate(R.layout.item_alertbutton, null);
                 TextView tvAlert = (TextView) itemView.findViewById(R.id.tvAlert);
                 tvAlert.setClickable(true);
 
                 //设置点击效果
-                if(mDatas.size() == 1){
+                if (mDatas.size() == 1) {
                     tvAlert.setBackgroundResource(R.drawable.bg_alertbutton_bottom);
-                }
-                else if(i == 0){//设置最左边的按钮效果
+                } else if (i == 0) {//设置最左边的按钮效果
                     tvAlert.setBackgroundResource(R.drawable.bg_alertbutton_left);
-                }
-                else if(i == mDatas.size() - 1){//设置最右边的按钮效果
+                } else if (i == mDatas.size() - 1) {//设置最右边的按钮效果
                     tvAlert.setBackgroundResource(R.drawable.bg_alertbutton_right);
                 }
                 String data = mDatas.get(i);
                 tvAlert.setText(data);
 
                 //取消按钮的样式
-                if (data == cancel){
+                if (data == cancel) {
                     tvAlert.setTypeface(Typeface.DEFAULT_BOLD);
                     tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_cancel));
                     tvAlert.setOnClickListener(new OnTextClickListener(CANCELPOSITION));
                     position = position - 1;
                 }
                 //高亮按钮的样式
-                else if (mDestructive!= null && mDestructive.contains(data)){
+                else if (mDestructive != null && mDestructive.contains(data)) {
                     tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_destructive));
                 }
 
                 tvAlert.setOnClickListener(new OnTextClickListener(position));
                 position++;
-                loAlertButtons.addView(itemView,new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                loAlertButtons.addView(itemView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             }
-        }
-        else{
+        } else {
             ViewStub viewStub = (ViewStub) contentContainer.findViewById(R.id.viewStubVertical);
             viewStub.inflate();
             initListView();
         }
     }
+
     protected void init() {
         inAnim = getInAnimation();
         outAnim = getOutAnimation();
     }
+
     protected void initEvents() {
     }
-    public AlertView addExtView(View extView){
+
+    public AlertView addExtView(View extView) {
         loAlertHeader.addView(extView);
         return this;
     }
+
     /**
      * show的时候调用
      *
@@ -283,6 +291,7 @@ public class AlertView {
         decorView.addView(view);
         contentContainer.startAnimation(inAnim);
     }
+
     /**
      * 添加这个View到Activity的根视图
      */
@@ -292,6 +301,7 @@ public class AlertView {
         }
         onAttached(rootView);
     }
+
     /**
      * 检测该View是不是已经添加到根视图
      *
@@ -310,7 +320,7 @@ public class AlertView {
     public void dismissImmediately() {
         decorView.removeView(rootView);
         isShowing = false;
-        if(onDismissListener != null){
+        if (onDismissListener != null) {
             onDismissListener.onDismiss(this);
         }
 
@@ -318,7 +328,7 @@ public class AlertView {
 
     public Animation getInAnimation() {
         Context context = contextWeak.get();
-        if(context == null) return null;
+        if (context == null) return null;
 
         int res = AlertAnimateUtil.getAnimationResource(this.gravity, true);
         return AnimationUtils.loadAnimation(context, res);
@@ -326,7 +336,7 @@ public class AlertView {
 
     public Animation getOutAnimation() {
         Context context = contextWeak.get();
-        if(context == null) return null;
+        if (context == null) return null;
 
         int res = AlertAnimateUtil.getAnimationResource(this.gravity, false);
         return AnimationUtils.loadAnimation(context, res);
@@ -337,18 +347,22 @@ public class AlertView {
         return this;
     }
 
-    class OnTextClickListener implements View.OnClickListener{
+    class OnTextClickListener implements View.OnClickListener {
 
         private int position;
-        public OnTextClickListener(int position){
+
+        public OnTextClickListener(int position) {
             this.position = position;
         }
+
         @Override
         public void onClick(View view) {
-            if(onItemClickListener != null)onItemClickListener.onItemClick(AlertView.this,position);
+            if (onItemClickListener != null)
+                onItemClickListener.onItemClick(AlertView.this, position);
             dismiss();
         }
     }
+
     private Animation.AnimationListener outAnimListener = new Animation.AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {
@@ -369,25 +383,26 @@ public class AlertView {
     /**
      * 主要用于拓展View的时候有输入框，键盘弹出则设置MarginBottom往上顶，避免输入法挡住界面
      */
-    public void setMarginBottom(int marginBottom){
+    public void setMarginBottom(int marginBottom) {
         Context context = contextWeak.get();
-        if(context == null) return;
+        if (context == null) return;
 
         int margin_alert_left_right = context.getResources().getDimensionPixelSize(R.dimen.margin_alert_left_right);
-        params.setMargins(margin_alert_left_right,0,margin_alert_left_right,marginBottom);
+        params.setMargins(margin_alert_left_right, 0, margin_alert_left_right, marginBottom);
         contentContainer.setLayoutParams(params);
     }
+
     public AlertView setCancelable(boolean isCancelable) {
         View view = rootView.findViewById(R.id.outmost_container);
 
         if (isCancelable) {
             view.setOnTouchListener(onCancelableTouchListener);
-        }
-        else{
+        } else {
             view.setOnTouchListener(null);
         }
         return this;
     }
+
     /**
      * Called when the user touch on black overlay in order to dismiss the dialog
      */
@@ -420,7 +435,7 @@ public class AlertView {
         }
 
         public Builder setStyle(Style style) {
-            if(style != null) {
+            if (style != null) {
                 this.style = style;
             }
             return this;

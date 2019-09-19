@@ -14,13 +14,15 @@ import java.util.List;
 /**
  * Created by Sai on 15/8/9.
  */
-public class AlertViewAdapter extends BaseAdapter{
+public class AlertViewAdapter extends BaseAdapter {
     private List<String> mDatas;
     private List<String> mDestructive;
-    public AlertViewAdapter(List<String> datas,List<String> destructive){
-        this.mDatas =datas;
-        this.mDestructive =destructive;
+
+    public AlertViewAdapter(List<String> datas, List<String> destructive) {
+        this.mDatas = datas;
+        this.mDestructive = destructive;
     }
+
     @Override
     public int getCount() {
         return mDatas.size();
@@ -38,36 +40,37 @@ public class AlertViewAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String data= mDatas.get(position);
-        Holder holder=null;
-        View view =convertView;
-        if(view==null){
+        String data = mDatas.get(position);
+        Holder holder = null;
+        View view = convertView;
+        if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            view=inflater.inflate(R.layout.item_alertbutton, null);
-            holder=creatHolder(view);
+            view = inflater.inflate(R.layout.item_alertbutton, null);
+            holder = creatHolder(view);
             view.setTag(holder);
+        } else {
+            holder = (Holder) view.getTag();
         }
-        else{
-            holder=(Holder) view.getTag();
-        }
-        holder.UpdateUI(parent.getContext(),data,position);
+        holder.UpdateUI(parent.getContext(), data, position);
         return view;
     }
-    public Holder creatHolder(View view){
+
+    public Holder creatHolder(View view) {
         return new Holder(view);
     }
+
     class Holder {
         private TextView tvAlert;
 
-        public Holder(View view){
+        public Holder(View view) {
             tvAlert = (TextView) view.findViewById(R.id.tvAlert);
         }
-        public void UpdateUI(Context context,String data,int position){
+
+        public void UpdateUI(Context context, String data, int position) {
             tvAlert.setText(data);
-            if (mDestructive!= null && mDestructive.contains(data)){
+            if (mDestructive != null && mDestructive.contains(data)) {
                 tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_destructive));
-            }
-            else{
+            } else {
                 tvAlert.setTextColor(context.getResources().getColor(R.color.textColor_alert_button_others));
             }
         }
