@@ -90,5 +90,5 @@ public class AutoSizeConfigUtil {
         //经过测试 DefaultErrorActivity 的设计图宽度在 380dp - 400dp 显示效果都是比较舒服的
 //                .addExternalAdaptInfoOfActivity(DefaultErrorActivity.class, new ExternalAdaptInfo(true, 400));
     }
-    
+
 }
