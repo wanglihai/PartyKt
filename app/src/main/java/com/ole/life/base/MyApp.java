@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 import com.ole.common.BaseApplication;
 import com.ole.life.config.AutoSizeConfigUtil;
+import com.ole.life.contant.UrlConfig;
 import com.ole.life.utils.EasyHttpUtils;
 
 /**
@@ -21,6 +22,8 @@ public class MyApp extends BaseApplication {
         //https://github.com/zhou-you/RxEasyHttp
         EasyHttpUtils.init(this);
         AutoSizeConfigUtil.setAutoSizeConfig(this);
+        //配置BaseUrl
+        UrlConfig.httpUrlConfig();
     }
 
     /**
