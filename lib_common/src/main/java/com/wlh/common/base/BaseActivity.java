@@ -15,6 +15,7 @@ import com.wlh.common.event.common.BaseActivityEvent;
 import com.wlh.common.manager.ActivityManager;
 import com.wlh.common.mvp.BaseView;
 import com.wlh.common.util.NetUtil;
+import com.wlh.common.util.statusbar.StatusBarUtil;
 import com.wlh.common.view.LoadingInitView;
 import com.wlh.common.view.LoadingTransView;
 import com.wlh.common.view.NetErrorView;
@@ -73,7 +74,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
         mViewStubTransLoading = findViewById(R.id.view_stub_trans_loading);
         mViewStubError = findViewById(R.id.view_stub_error);
         mViewStubNoData = findViewById(R.id.view_stub_nodata);
-
+        StatusBarUtil.setStatusOvr(this,true);
         if (enableToolbar()) {
             mViewStubToolbar.setLayoutResource(onBindToolbarLayout());
             View view = mViewStubToolbar.inflate();

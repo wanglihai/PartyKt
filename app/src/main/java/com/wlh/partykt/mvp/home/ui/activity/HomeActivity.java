@@ -1,6 +1,7 @@
 package com.wlh.partykt.mvp.home.ui.activity;
 
 import com.wlh.common.base.BaseMvpActivity;
+import com.wlh.common.util.statusbar.StatusBarUtil;
 import com.wlh.partykt.R;
 import com.wlh.partykt.mvp.home.contract.HomeContract;
 import com.wlh.partykt.mvp.home.model.HomeModel;
@@ -36,16 +37,16 @@ public class HomeActivity extends BaseMvpActivity<HomeModel, HomeContract.View, 
 
     @Override
     public boolean enableToolbar() {
-        return true;
+        return false;
     }
 
-    @Override
-    public String getTootBarTitle() {
-        return "主页";
-    }
-
-    @Override
-    public int onBindToolbarLayout() {
-        return R.layout.common_toolbar_leftbtn;
-    }
+//    @Override
+//    public String getTootBarTitle() {
+//        return "主页";
+//    }
+//
+//    @Override
+//    public int onBindToolbarLayout() {
+//        return R.layout.common_toolbar_leftbtn;
+//    }
 }
