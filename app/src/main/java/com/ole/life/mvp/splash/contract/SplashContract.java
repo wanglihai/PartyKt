@@ -1,9 +1,9 @@
 package com.ole.life.mvp.splash.contract;
 
-import com.ole.common.mvp.BaseView;
+import com.wlh.common.mvp.BaseView;
 
 /**
- * Created by on 09/18/2019 15:27
+ * Created by on 10/15/2019 15:33
  * 版本: 1.0
  * 描述:
  * 修改说明:

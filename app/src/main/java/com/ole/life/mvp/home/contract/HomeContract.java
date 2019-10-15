@@ -1,6 +1,6 @@
 package com.ole.life.mvp.home.contract;
 
-import com.ole.common.mvp.BaseView;
+import com.wlh.common.mvp.BaseView;
 
 /**
  * Created by on 08/29/2019 16:04

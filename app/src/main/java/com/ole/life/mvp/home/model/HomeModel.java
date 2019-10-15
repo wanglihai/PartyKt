@@ -2,7 +2,7 @@ package com.ole.life.mvp.home.model;
 
 import android.content.Context;
 
-import com.ole.common.mvp.BaseModel;
+import com.wlh.common.mvp.BaseModel;
 import com.ole.life.mvp.home.contract.HomeContract;
 
 /**

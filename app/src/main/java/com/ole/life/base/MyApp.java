@@ -3,9 +3,9 @@ package com.ole.life.base;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
-import com.ole.common.BaseApplication;
-import com.ole.life.config.AutoSizeConfigUtil;
 import com.ole.life.contant.UrlConfig;
+import com.wlh.common.BaseApplication;
+import com.ole.life.config.AutoSizeConfigUtil;
 import com.ole.life.utils.EasyHttpUtils;
 
 /**

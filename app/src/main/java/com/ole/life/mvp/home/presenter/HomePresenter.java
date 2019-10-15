@@ -2,9 +2,9 @@ package com.ole.life.mvp.home.presenter;
 
 import android.content.Context;
 
-import com.ole.common.mvp.BasePresenter;
 import com.ole.life.mvp.home.contract.HomeContract;
 import com.ole.life.mvp.home.model.HomeModel;
+import com.wlh.common.mvp.BasePresenter;
 
 /**
  * Created by on 08/29/2019 16:04

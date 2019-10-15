@@ -3,7 +3,7 @@ package com.ole.life.utils;
 import android.app.Application;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.ole.common.httpconfig.interceptor.CustomSignInterceptor;
+import com.wlh.common.httpconfig.interceptor.CustomSignInterceptor;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.SerializableDiskConverter;
 import com.zhouyou.http.cache.model.CacheMode;

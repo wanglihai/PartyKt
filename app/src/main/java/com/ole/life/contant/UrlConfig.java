@@ -1,6 +1,7 @@
 package com.ole.life.contant;
 
-import com.ole.life.BuildConfig;
+
+import com.wlh.common.BuildConfig;
 
 public class UrlConfig {
 
@@ -27,5 +28,5 @@ public class UrlConfig {
             BASE_NEW_H5_URL ="http://t.ppparty.cn/test";
         }
     }
-    
+
 }

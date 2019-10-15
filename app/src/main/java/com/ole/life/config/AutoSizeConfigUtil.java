@@ -3,7 +3,7 @@ package com.ole.life.config;
 import android.app.Activity;
 import android.app.Application;
 
-import com.ole.common.util.log.KLog;
+import com.wlh.common.util.log.KLog;
 
 import java.util.Locale;
 

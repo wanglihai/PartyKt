@@ -1,9 +1,10 @@
 package com.ole.life.mvp.home.ui.activity;
 
-import com.ole.common.base.BaseMvpActivity;
 import com.ole.life.R;
 import com.ole.life.mvp.home.contract.HomeContract;
 import com.ole.life.mvp.home.model.HomeModel;
+import com.wlh.common.base.BaseMvpActivity;
+
 import com.ole.life.mvp.home.presenter.HomePresenter;
 
 /**
