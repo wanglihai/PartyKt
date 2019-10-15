@@ -1,29 +1,63 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def static buildTime() {
+    def time = new SimpleDateFormat("yyyy_MM_dd-HH_mm")
+    time.setTimeZone(TimeZone.getDefault())
+    return time.format(new Date())
+}
 
 android {
     compileSdkVersion 28
+    buildToolsVersion = '28.0.3'
     defaultConfig {
-        applicationId "com.wlh.partykt"
+        applicationId "com.ole.life"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        flavorDimensions "release"
     }
-    buildTypes {
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file("ole.jks")
+            storePassword "123456"
+            keyAlias "ole"
+            keyPassword "123456"
+            v2SigningEnabled true
         }
     }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "OLE生活_v${variant.versionName}_${variant.buildType.name}_${buildTime()}.apk"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-    buildToolsVersion = '28.0.3'
 }
 
 dependencies {
