@@ -11,7 +11,7 @@ import com.wlh.common.mvp.BaseView;
 public interface SplashContract {
 
     interface Presenter {
-
+        void initDelayTask();
     }
 
     interface View extends BaseView {
@@ -19,7 +19,7 @@ public interface SplashContract {
     }
 
     interface Model {
-
+        void getImageUrl();
     }
 
 }

@@ -109,6 +109,6 @@ public class BaseApplication extends Application {
                 return classicsFooter;
             }
         });
-
     }
+
 }

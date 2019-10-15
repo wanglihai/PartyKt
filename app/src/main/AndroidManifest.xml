@@ -13,15 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".mvp.splash.ui.activity.SplashActivity"></activity>
-        <!-- AndroidAutoSize屏幕适配方案 -->
-        <activity android:name=".mvp.home.ui.activity.HomeActivity">
+
+        <activity
+            android:name=".mvp.splash.ui.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".mvp.home.ui.activity.HomeActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- AndroidAutoSize屏幕适配方案 -->
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" /> <!-- android 7.1 私有文件权限 -->

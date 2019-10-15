@@ -37,8 +37,8 @@
 -dontwarn java.nio.file.Path
 -dontwarn java.nio.file.OpenOption
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
--dontwarn org.apache.http.**
--dontwarn android.net.http.AndroidHttpClient
+-dontwarn org.apache.com.ole.life.http.**
+-dontwarn android.net.com.ole.life.http.AndroidHttpClient
 -dontwarn com.android.volley.toolbox.**
 -dontwarn android.support.**
 -dontwarn com.google.android.gms.**
@@ -158,9 +158,9 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 
 #RxEasyHttp
--keep class com.zhouyou.http.model.** {*;}
--keep class com.zhouyou.http.cache.model.** {*;}
--keep class com.zhouyou.http.cache.stategy.**{*;}
+-keep class com.zhouyou.com.ole.life.http.model.** {*;}
+-keep class com.zhouyou.com.ole.life.http.cache.model.** {*;}
+-keep class com.zhouyou.com.ole.life.http.cache.stategy.**{*;}
 
 
 -keep public class com.alibaba.android.arouter.routes.**{*;}

@@ -1,176 +1,199 @@
 package com.wlh.common.util;
 
-/**
- * Description: <SPUtils><br>
- * Author: mxdl<br>
- * Date: 2018/6/19<br>
- * Version: V1.0.0<br>
- * Update: <br>
- * <ul>
- * <li>1.缓存数据</li>
- * <li>2.获取数据</li>
- * <li>3.删除数据</li>
- * <li>4.清空数据</li>
- * </ul>
- */
-
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Map;
+import com.wlh.common.BaseApplication;
 
 public class SPUtils {
-    /**
-     * 保存在手机里面的文件名
-     */
-    public static final String FILE_NAME = "fly_tour_data";
+
+    private SharedPreferences mPreferences;
+
+    public SPUtils(String fileName) {
+        this.mPreferences = BaseApplication.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
+    }
 
     /**
-     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     * 保存字符串
      *
-     * @param context
      * @param key
-     * @param object
+     * @param value
      */
-    public static void put(Context context, String key, Object object) {
-
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-
-        if (object instanceof String) {
-            editor.putString(key, (String) object);
-        } else if (object instanceof Integer) {
-            editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float) {
-            editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long) {
-            editor.putLong(key, (Long) object);
-        } else {
-            editor.putString(key, object.toString());
-        }
-
-        SharedPreferencesCompat.apply(editor);
+    public static boolean putString(String key, String value) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        return editor.commit();
     }
 
     /**
-     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     * 获取字符值
      *
-     * @param context
-     * @param key
-     * @param defaultObject
-     * @return
-     */
-    public static Object get(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-
-        if (defaultObject instanceof String) {
-            return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer) {
-            return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean) {
-            return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float) {
-            return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long) {
-            return sp.getLong(key, (Long) defaultObject);
-        }
-
-        return null;
-    }
-
-    /**
-     * 移除某个key值已经对应的值
-     *
-     * @param context
-     * @param key
-     */
-    public static void remove(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.remove(key);
-        SharedPreferencesCompat.apply(editor);
-    }
-
-    /**
-     * 清除所有数据
-     *
-     * @param context
-     */
-    public static void clear(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
-        SharedPreferencesCompat.apply(editor);
-    }
-
-    /**
-     * 查询某个key是否已经存在
-     *
-     * @param context
      * @param key
      * @return
      */
-    public static boolean contains(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        return sp.contains(key);
+    public static String getString(String key) {
+        return getString(key, "");
     }
 
     /**
-     * 返回所有的键值对
+     * 获取字符值
      *
-     * @param context
+     * @param key
+     * @param defaultValue
      * @return
      */
-    public static Map<String, ?> getAll(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        return sp.getAll();
+    public static String getString(String key, String defaultValue) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getString(key, defaultValue);
     }
 
     /**
-     * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
+     * 保存int型
      *
-     * @author zhy
+     * @param key
+     * @param value
      */
-    private static class SharedPreferencesCompat {
-        private static final Method sApplyMethod = findApplyMethod();
-
-        /**
-         * 反射查找apply的方法
-         *
-         * @return
-         */
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        private static Method findApplyMethod() {
-            try {
-                Class clz = SharedPreferences.Editor.class;
-                return clz.getMethod("apply");
-            } catch (NoSuchMethodException e) {
-            }
-
-            return null;
-        }
-
-        /**
-         * 如果找到则使用apply执行，否则使用commit
-         *
-         * @param editor
-         */
-        public static void apply(SharedPreferences.Editor editor) {
-            try {
-                if (sApplyMethod != null) {
-                    sApplyMethod.invoke(editor);
-                    return;
-                }
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
-            }
-            editor.commit();
-        }
+    public static boolean putInt(String key, int value) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        return editor.commit();
     }
 
+    /**
+     * 获取int值
+     *
+     * @param key
+     * @return
+     */
+    public static int getInt(String key) {
+        return getInt(key, 0);
+    }
+
+    /**
+     * 获取int值
+     *
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static int getInt(String key, int defaultValue) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(key, defaultValue);
+    }
+
+    /**
+     * 保存long型
+     *
+     * @param key
+     * @param value
+     */
+    public static boolean putLong(String key, long value) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * 获取long值
+     *
+     * @param key
+     * @return
+     */
+    public static long getLong(String key) {
+        return getLong(key, 0);
+    }
+
+    /**
+     * 获取long值
+     *
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static long getLong(String key, long defaultValue) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getLong(key, defaultValue);
+    }
+
+    /**
+     * 保存float型
+     *
+     * @param key
+     * @param value
+     */
+    public static boolean putFloat(String key, float value) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * 获取float值
+     *
+     * @param key
+     * @return
+     */
+    public static float getFloat(String key) {
+        return getFloat(key, 0);
+    }
+
+    /**
+     * 获取float值
+     *
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static float getFloat(String key, float defaultValue) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getFloat(key, defaultValue);
+    }
+
+    /**
+     * 保存布尔值
+     *
+     * @param key
+     * @param value
+     */
+    public static boolean putBoolean(String key, boolean value) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * 获取布尔值
+     *
+     * @param key
+     * @return
+     */
+    public static boolean getBoolean(String key) {
+        return getBoolean(key, false);
+    }
+
+    /**
+     * 获取布尔值
+     *
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static boolean getBoolean(String key, boolean defaultValue) {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, defaultValue);
+    }
+
+    public static void clear() {
+        SharedPreferences sharedPreferences = BaseApplication.getInstance().getSharedPreferences(getPrefName(), Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+    }
+
+    private static String getPrefName() {
+        return "OLELife_config";
+    }
 }

@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -72,6 +73,32 @@ public class AppTools {
             versionCode = 999;
         }
         return versionCode;
+    }
+
+    /**
+     * 获取获取设备Id
+     */
+    public static String getDeviceId(Context context) {
+        return  Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+    }
+
+    /**
+     * 获取手机型号
+     *
+     * @return 手机型号
+     */
+    public static String getSystemModel() {
+        return android.os.Build.MODEL;
+    }
+
+    /**
+     * 获取当前手机系统版本号
+     *
+     * @return 系统版本号
+     */
+    public static
+    String getSystemVersion() {
+        return android.os.Build.VERSION.RELEASE;
     }
 
     /**

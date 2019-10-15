@@ -6,7 +6,7 @@ import android.content.res.Resources;
 import com.ole.life.contant.UrlConfig;
 import com.wlh.common.BaseApplication;
 import com.ole.life.config.AutoSizeConfigUtil;
-import com.ole.life.utils.EasyHttpUtils;
+import com.ole.life.http.EasyHttpUtils;
 
 /**
  * 时间: 2019-08-2716:03

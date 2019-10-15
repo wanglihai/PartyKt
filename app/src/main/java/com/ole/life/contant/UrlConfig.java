@@ -1,7 +1,12 @@
 package com.ole.life.contant;
 
 
+import com.ole.life.http.model.HttpHeaders;
+import com.wlh.common.BaseApplication;
 import com.wlh.common.BuildConfig;
+import com.wlh.common.util.AppTools;
+import com.wlh.common.util.SPUtils;
+
 
 public class UrlConfig {
 
@@ -27,6 +32,24 @@ public class UrlConfig {
             BASE_NEW_URL ="http://api.oleshop.ppparty.cn";
             BASE_NEW_H5_URL ="http://t.ppparty.cn/test";
         }
+    }
+
+    /**
+     * 配置请求头
+     * @return
+     */
+    public static HttpHeaders getCommonHeaders() {
+        HttpHeaders  httpHeaders= new HttpHeaders();
+        httpHeaders.put("Content-Type", "application/json");
+        httpHeaders.put("Charset", "utf-8");
+        httpHeaders.put("Authorization", SPUtils.getString(SpContant.USER_TOKEN));
+        httpHeaders.put("Uid", SPUtils.getString(SpContant.USER_UID));
+        httpHeaders.put("Version", AppTools.getVersionName(BaseApplication.getInstance()));
+        httpHeaders.put("Device", AppTools.getDeviceId(BaseApplication.getInstance()));
+        httpHeaders.put("AppId", "3");
+        httpHeaders.put("Phonemodel", AppTools.getSystemModel());
+        httpHeaders.put("Phonesystem", AppTools.getSystemVersion());
+        return httpHeaders;
     }
 
 }
