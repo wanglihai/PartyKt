@@ -35,12 +35,17 @@ public class HomeActivity extends BaseMvpActivity<HomeModel, HomeContract.View, 
     }
 
     @Override
-    public String getTootBarTitle() {
-        return "主页";
+    public boolean enableToolbar() {
+        return false;
     }
 
-    @Override
-    public int onBindToolbarLayout() {
-        return R.layout.common_toolbar_leftbtn;
-    }
+//    @Override
+//    public String getTootBarTitle() {
+//        return "主页";
+//    }
+//
+//    @Override
+//    public int onBindToolbarLayout() {
+//        return R.layout.common_toolbar_leftbtn;
+//    }
 }
